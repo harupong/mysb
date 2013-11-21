@@ -19,6 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, :at => '11:45' do 
-  command "ruby Dev/mysb/mysb.rb | tw -dm:to=harupong --pipe"
+set :output, '~/App/mysb/mysb.log'
+
+every 1.day, :at => '23:00' do 
+  command "ruby ~/App/mysb/mysb.rb | /usr/local/bin/tw -dm:to=harupong --pipe"
 end
