@@ -6,6 +6,7 @@ class MySBClient
  
   def initialize
     @agent = Mechanize.new
+    @agent.user_agent_alias = 'iPad'
   end
   
   def usage_bill
