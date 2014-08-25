@@ -17,11 +17,11 @@ class MySBClient
   end
   
   def allowance
-    allowance = @agent.page.search('table.contract-info.mt_20').search('tr.first').search('td')[-2].text.strip.gsub(/（.+）/,"")
+    allowance = @agent.page.search('table.contract-info.mt_20 tr.first td').text.strip.gsub(/（.+）/,"")
     puts "今月のパケット残量 -> #{allowance}"
 
     @agent.page.link_with(:href=>/RES0300/).click
-    usage = @agent.page.search('table.contract-info').search('td').map{ |n| n.text.strip.gsub(/（.+）/,"") }
+    usage = @agent.page.search('table.contract-info td').map{ |n| n.text.strip.gsub(/（.+）/,"") }
     puts "過去3日間のパケット使用量"
     puts "#{usage[0]} #{usage[1]}"
     puts "#{usage[2]} #{usage[3]}"
@@ -43,7 +43,6 @@ class MySBClient
   end
  
   def usage_page
-    top()
     @agent.page.link_with(:href=>/MRERE0000/).click
     @agent.page.forms[0].submit
   end
