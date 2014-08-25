@@ -12,12 +12,21 @@ class MySBClient
   def usage_bill
     login()
     usage_page()
-    p "今月のパケット残量 -> " + allowance()
+    allowance()
     logout()
   end
   
   def allowance
-    @agent.page.search('table.contract-info.mt_20').search('tr.first').search('td')[-2].text.strip
+    allowance = @agent.page.search('table.contract-info.mt_20').search('tr.first').search('td')[-2].text.strip.gsub(/（.+）/,"")
+    puts "今月のパケット残量 -> #{allowance}"
+
+    @agent.page.link_with(:href=>/RES0300/).click
+    usage = @agent.page.search('table.contract-info').search('td').map{ |n| n.text.strip.gsub(/（.+）/,"") }
+    puts "過去3日間のパケット使用量"
+    puts "#{usage[0]} #{usage[1]}"
+    puts "#{usage[2]} #{usage[3]}"
+    puts "#{usage[4]} #{usage[5]}"
+    puts "#{usage[6]} #{usage[7]}"
   end
   
   def top
