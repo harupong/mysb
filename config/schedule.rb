@@ -22,5 +22,5 @@
 set :output, '~/Apps/mysb/mysb.log'
 
 every 1.day, :at => '7:00' do 
-  command "cd ~/Apps/mysb/ && ruby mysb.rb | tw -dm:to=harupong --pipe"
+  command "cd ~/Apps/mysb/ && ruby mysb.rb | tw -user=harupong_bot -dm:to=harupong --pipe"
 end
